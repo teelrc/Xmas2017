@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NUnit.Framework.Constraints;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class DragAndDrop : MonoBehaviour
 {
@@ -94,11 +95,12 @@ public class DragAndDrop : MonoBehaviour
             this.transform.position = destination;
             this.transform.SetParent(parentTransform);
 
-            GameBoard.instance.UpdateScore();
+            //GameBoard.instance.UpdateScore();
         }
         else
         {
             Destroy(gameObject);
         }
+        GameBoard.instance.UpdateSubmitButton();
     }
 }

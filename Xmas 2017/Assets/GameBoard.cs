@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GameBoard : MonoBehaviour
 {
@@ -48,6 +49,26 @@ public class GameBoard : MonoBehaviour
         }
     }
 
+    public void UpdateSubmitButton()
+    {
+        int count = 0;
+        for (int i = 0; i < Slots.Length; ++i)
+        {
+            if (Slots[i].transform.childCount > 0)
+            {
+                count++;
+            }
+        }
+        if (count >= Slots.Length)
+        {
+            SubmitButton.instance.EnableButton();
+        }
+        else
+        {
+            SubmitButton.instance.DisableButton();
+        }
+    }
+
     public void UpdateScore()
     {
         int numColors = 0, numColorsAndSlots = 0;
@@ -79,6 +100,7 @@ public class GameBoard : MonoBehaviour
         Debug.Log("numColorsAndSlots: " + NumCorrectColorsAndSlots);
         Debug.Log("-----------------------------------------------");
 
+        GameScore.instance.SetScore(NumCorrectColorsAndSlots, NumCorrectColors);
 
         CheckWin();
 
@@ -89,6 +111,7 @@ public class GameBoard : MonoBehaviour
         if (NumCorrectColorsAndSlots == GoalSlot.Length)
         {
             Debug.Log("YOU WIN!");
+            WinningText.instance.DisplayWinningText();
         }
     }
 }
