@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stocking : MonoBehaviour {
+public class Stocking : MonoBehaviour
+{
 
-	public enum StockingColors { Red,Orange,Yellow,Green,Blue,Purple};
+    public enum StockingColors { Red, Orange, Yellow, Green, Blue, Purple, NumberOfTypes };
 
-    public StockingColors strockingColor = StockingColors.Red;
+    public StockingColors stockingColor = StockingColors.Red;
 
     // Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }

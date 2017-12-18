@@ -22,12 +22,25 @@ public class DragAndDrop : MonoBehaviour
 
     void OnMouseDown()
     {
+        
+
+        if (transform.parent)
+        {
+            StockingFactory factory = transform.parent.GetComponent<StockingFactory>();
+            if (factory)
+            {
+                factory.InstantiateStocking();
+            }
+        }
+
         _isSelected = true;
+        transform.parent = null;
         var v3 = Input.mousePosition;
         v3.z = 0.0f;
         v3 = Camera.main.ScreenToWorldPoint(v3);
         _selectX = v3.x - transform.position.x;
         _selectY = v3.y - transform.position.y;
+
     }
 
     void OnMouseDrag()
@@ -48,11 +61,15 @@ public class DragAndDrop : MonoBehaviour
         Collider2D myCollider = GetComponent<Collider2D>();
         Collider2D[] snapColliders = new Collider2D[4];
         ContactFilter2D contactFilter = new ContactFilter2D();
+        contactFilter.SetLayerMask(LayerMask.GetMask("Snappable"));
         int count = myCollider.OverlapCollider(contactFilter, snapColliders);
 
         if (count > 0)
         {
-            Vector3 destination = new Vector3(snapColliders[0].transform.position.x, snapColliders[0].transform.position.y, transform.position.z);
+            Transform parentTransform = snapColliders[0].transform;
+            Vector3 destination = new Vector3(snapColliders[0].transform.position.x,
+                snapColliders[0].transform.position.y, transform.position.z);
+
             for (int i = 1; i < count; ++i)
             {
                 Vector3 currentDest = new Vector3(snapColliders[i].transform.position.x,
@@ -61,12 +78,27 @@ public class DragAndDrop : MonoBehaviour
                     Vector3.Distance(transform.position, currentDest))
                 {
                     destination = currentDest;
+                    parentTransform = snapColliders[i].transform;
                 }
             }
 
+            // destroy all existing children of parent
+            if (parentTransform.childCount > 0)
+            {
+                for (int i = 0; i < parentTransform.childCount; ++i)
+                {
+                    Destroy(parentTransform.GetChild(i).gameObject);
+                }
+            }
 
             this.transform.position = destination;
+            this.transform.SetParent(parentTransform);
 
+            GameBoard.instance.UpdateScore();
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 }
