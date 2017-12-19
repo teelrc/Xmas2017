@@ -5,19 +5,17 @@ using UnityEngine;
 public class History : MonoBehaviour {
 
     public static History instance = null;
-
     public int guessCount = 0;
+    public List<GameObject> guesses;
+    public GameObject guess;
 
     public void AddGuess()
     {
-        GameObject g = Instantiate(guess,guesses[guessCount].transform.position,Quaternion.identity,transform);
+        GameObject g = Instantiate(guess, guesses[guessCount].transform.position, Quaternion.identity, transform);
         g.GetComponent<Guess>().SetGuess();
         guesses[guessCount] = g;
         guessCount++;
     }
-
-    public List<GameObject> guesses;
-    public GameObject guess;
 
     void Awake()
     {
