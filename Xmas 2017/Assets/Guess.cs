@@ -23,7 +23,10 @@ public class Guess : MonoBehaviour {
 
     public void SetGuess()
     {
-        for(int i=0; i<slots.Length; i++)
+        NumCorrectColors = GameBoard.instance.NumCorrectColors;
+        NumCorrectColorsAndSlots = GameBoard.instance.NumCorrectColorsAndSlots;
+
+        for (int i=0; i<slots.Length; i++)
         {
             Transform slotChild = GameBoard.instance.Slots[i].transform.GetChild(0);
             if (slotChild)
@@ -40,6 +43,9 @@ public class Guess : MonoBehaviour {
                 }
             }
         }
+
+        Text t = GetComponentInChildren<Text>();
+        t.text = NumCorrectColors + " " + NumCorrectColorsAndSlots; 
       
     }
 
