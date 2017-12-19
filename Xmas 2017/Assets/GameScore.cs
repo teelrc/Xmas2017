@@ -35,7 +35,8 @@ public class GameScore : MonoBehaviour
         Text scoreboard = GetComponent<Text>();
         if (scoreboard)
         {
-            scoreboard.text = "<color=#000000ff>Number Correct: " + correct + "</color><color=#c0c0c0ff>\nNumber Correct Colors: " + color + "</color>";
+            scoreboard.text = "<color=#000000ff>Number Correct: " + correct +
+                "</color><color=#c0c0c0ff>\nNumber Correct Colors: " + color + "</color>";
         }
         
     }
