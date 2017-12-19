@@ -102,6 +102,8 @@ public class GameBoard : MonoBehaviour
 
         GameScore.instance.SetScore(NumCorrectColorsAndSlots, NumCorrectColors);
 
+        History.instance.AddGuess();
+
         CheckWin();
 
     }
